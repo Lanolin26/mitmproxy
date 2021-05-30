@@ -4,6 +4,7 @@ import json
 import logging
 import os.path
 import re
+import gc
 from io import BytesIO
 from typing import ClassVar, Optional
 
@@ -270,6 +271,7 @@ class ClearAll(RequestHandler):
     def post(self):
         self.view.clear()
         self.master.events.clear()
+        gc.collect()
 
 
 class ResumeFlows(RequestHandler):
