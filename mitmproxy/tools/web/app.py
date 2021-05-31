@@ -269,6 +269,10 @@ class DumpFlows(RequestHandler):
 
 class ClearAll(RequestHandler):
     def post(self):
+        for f in self.view:
+            if f.killable:
+                f.kill()
+                self.view.update([f])
         self.view.clear()
         self.master.events.clear()
         gc.collect()
